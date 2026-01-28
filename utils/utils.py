@@ -50,7 +50,7 @@ def init_clash_window():
         window.resizeTo(1280 + OFFSET_X, 720 + OFFSET_Y)
         sleep(0.1)
 
-def click_on_screen(x, y, max_offset=5, min_press_time=0.05, max_press_time=0.25, max_delay=0.5):
+def click_on_screen(x, y, max_offset=5, min_press_time=0.05, max_press_time=0.25, max_delay=5):
     win_x, win_y = get_window_pos()
     x += win_x
     y += win_y
@@ -69,7 +69,9 @@ def click_on_screen(x, y, max_offset=5, min_press_time=0.05, max_press_time=0.25
 buttons = {
     "Attack!" : (71, 648, 10),
     "Find a Match" : (144, 503),
-    "X Attack!" : (1083, 615)
+    "X Attack!" : (1083, 615),
+    "End Battle" : (77, 566),
+    "Next" : (1189, 551),
 }
 
 if __name__ == "__main__":
