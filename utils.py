@@ -1,5 +1,6 @@
 import pyautogui
 import pygetwindow as gw
+import random
 from time import sleep
 
 OFFSET_X = 64
@@ -39,8 +40,24 @@ def open_clash_window():
         window.resizeTo(1280, 720)
         sleep(0.1)
 
+def click_on_screen(x, y, max_offset=5, min_time=0.05, max_time=0.25, max_delay=0.5):
+    offset_x = random.randint(-max_offset, max_offset)
+    offset_y = random.randint(-max_offset, max_offset)
+
+    pyautogui.moveTo(x + offset_x, y + offset_y, duration=random.uniform(min_time, max_time))
+
+    sleep(random.uniform(0, max_delay))
+
+    pyautogui.mouseDown()
+    sleep(random.uniform(0.05, 0.2))
+    pyautogui.mouseUp()
+
+buttons = {
+    
+}
+
 if __name__ == "__main__":
-    open_clash_window()
+    #open_clash_window()
 
     screenshot = get_screenshot()
     screenshot.save("screenshot.png")
