@@ -74,10 +74,13 @@ buttons = {
     "Next" : (1189, 551),
 }
 
+def normalize_camera():
+    click_on_screen(0, 0)
+
 if __name__ == "__main__":
     init_clash_window()
 
     screenshot = get_screenshot()
     screenshot.save("screenshot.png")
 
-    click_on_screen(*buttons["Attack!"])
+    #click_on_screen(*buttons["Attack!"])
