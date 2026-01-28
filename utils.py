@@ -27,7 +27,7 @@ def get_screenshot(start_x=0, start_y=0, end_x=PLAY_WINDOW_SIZE_X, end_y=PLAY_WI
     screenshot = pyautogui.screenshot(region=[x + start_x, y + start_y, end_x - start_x, end_y - start_y])
     return screenshot
 
-def open_clash_window():
+def init_clash_window():
     if not get_window_pos():
         pyautogui.press('win')
         sleep(0.2)
@@ -39,7 +39,7 @@ def open_clash_window():
     windows = gw.getWindowsWithTitle("Clash of Clans")
 
     if not windows:
-        raise Exception("Clash of Clans window did not open in open_clash_window")
+        raise Exception("Clash of Clans window did not open in init_clash_window")
     
     window = windows[0]
 
