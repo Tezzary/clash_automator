@@ -2,6 +2,8 @@ import pyautogui
 import pygetwindow as gw
 import random
 from time import sleep
+import cv2
+import numpy as np
 
 OFFSET_X = 64
 OFFSET_Y = 36
@@ -75,10 +77,45 @@ buttons = {
 }
 
 def normalize_camera():
-    click_on_screen(0, 0)
+    win_x, win_y = get_window_pos()
+    center_x = win_x + PLAY_WINDOW_SIZE_X // 2
+    center_y = win_y + PLAY_WINDOW_SIZE_Y // 2
+
+    pyautogui.moveTo(center_x, center_y)
+    sleep(0.1)
+
+    for _ in range(20):
+        pyautogui.scroll(-500)
+        sleep(0.1)
+
+    pyautogui.mouseDown()
+    sleep(0.1)
+    pyautogui.moveTo(center_x - 350, center_y - 350, duration=0.5)
+    sleep(0.1)
+
+
+    pyautogui.mouseUp()
+
+def find_location_on_screen(image_path, threshold=0.5):
+    screenshot = get_screenshot()
+    cv_screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+    template = cv2.imread(image_path, cv2.IMREAD_COLOR)
+    result = cv2.matchTemplate(cv_screenshot, template, cv2.TM_CCOEFF_NORMED)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+    print(max_val)
+    if max_val >= threshold:
+        template_height, template_width = template.shape[:2]
+        center_x = max_loc[0] + template_width // 2
+        center_y = max_loc[1] + template_height // 2
+        return center_x, center_y
+    return None
 
 if __name__ == "__main__":
     init_clash_window()
+
+    
+
+    normalize_camera()
 
     screenshot = get_screenshot()
     screenshot.save("screenshot.png")

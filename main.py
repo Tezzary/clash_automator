@@ -17,5 +17,14 @@ def test_attack():
     import programs.attack as attack
     attack.attack()
 
+def test_upgrade():
+    import programs.upgrade as upgrade
+    upgrade.upgrade()
+
 if __name__ == "__main__":
-    test_attack()
+    #test_attack()
+
+    test_upgrade()
+
+    screenshot = utils.get_screenshot()
+    screenshot.save("screenshot.png")
